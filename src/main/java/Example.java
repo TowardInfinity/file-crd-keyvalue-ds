@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import in.toin.DB;
+import org.mapdb.HTreeMap;
 
 import java.io.IOException;
 import java.util.Map;
@@ -8,13 +9,19 @@ import java.util.concurrent.ConcurrentMap;
 public class Example {
     public static void main(String[] args) {
         
-        // in.toin.DB with standard project directory
+        // DB with standard project directory
         DB customDb = new DB("persons");
         
-        // in.toin.DB with custom location
-//        in.toin.DB customDb1 = new in.toin.DB("E:\\", "hello");
+        // DB with custom location
+        // DB customDb1 = new DB("E:\\", "hello");
         
+        /**
+         * ObjectMapper provides functionality for reading and writing JSON,
+         * either to and from basic POJOs (Plain Old Java Objects)
+         */
         ObjectMapper mapper = new ObjectMapper();
+    
+        // Map of our DS
         ConcurrentMap<String, String> map = null;
         
         try {
@@ -24,8 +31,9 @@ public class Example {
             // Java objects to JSON string - compact-print
             String jsonString = mapper.writeValueAsString(value);
             
+            // Get Map
             map  = customDb.getMap();
-    
+            
             map.put("brand", jsonString);
             map.remove("start1");
             

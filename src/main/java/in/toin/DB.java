@@ -12,20 +12,38 @@ public class DB {
     private ConcurrentMap<String, String> map;
     private org.mapdb.DB db;
     
+    /**
+     * Custom location for DB.
+     * @param fileLocation file directory/location(path)
+     * @param fileName file name of the db
+     */
     public DB(String fileLocation, String fileName) {
         this.fileLocation = fileLocation;
         this.fileName = fileName;
-        createDB();
-        createMap();
+        init();
     }
     
+    /**
+     * Project directory location of DB.
+     * @param fileName file name of the db
+     */
     public DB(String fileName) {
         this.fileName = fileName;
         fileLocation = "~";
+        init();
+    }
+    
+    /**
+     * Initializing the values
+     */
+    private void init() {
         createDB();
         createMap();
     }
     
+    /**
+     * Create DB with the location
+     */
     private void createDB() {
         db = DBMaker
                 .fileDB(
@@ -35,17 +53,26 @@ public class DB {
                 .make();
     }
     
-    private ConcurrentMap<String, String> createMap() {
+    /**
+     * Create Map for the Key-Value Pair
+     */
+    private void createMap() {
         map = db
                 .hashMap("map", Serializer.STRING, Serializer.STRING)
                 .createOrOpen();
-        return map;
     }
     
+    /**
+     * Get the map Created
+     * @return ConcurrentMap<String, String> of the map DS
+     */
     public ConcurrentMap<String, String> getMap() {
         return map;
     }
     
+    /**
+     * Close the DB once, used.
+     */
     public void close() {
         db.close();
     }

@@ -14,6 +14,19 @@ File extension in this project is **db**.
 * As it is based on java collection, many more features are copied with the same.
 * for more features refer [mapdb-docs](https://jankotek.gitbooks.io/mapdb/content/).
 
+## Requirements
+* Java 21 (LTS) or later
+* Maven 3.9+ (or use the included `./mvnw` wrapper)
+
+## Build & Test
+```bash
+# Run tests
+./mvnw test
+
+# Build package JAR
+./mvnw package
+```
+
 ## How to use
 
 ### Create Database
